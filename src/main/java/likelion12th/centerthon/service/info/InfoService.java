@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 @Service
 @Transactional
@@ -27,5 +29,16 @@ public class InfoService {
             Info newInfo = new Info(info.getWord(), info.getDescription(), info.getExsentence());
             infoRepository.save(newInfo);
         }
+    }
+
+    // 사용자 설명, 예문 수정
+    public void updateInfo(Long infoId, Info info) throws Exception{
+        Info existingInfo = infoRepository.findById(infoId)
+            .orElseThrow(() -> new IllegalArgumentException("해당 ID의 정보 없음"));
+
+        existingInfo.updateDescription(info.getDescription());
+        existingInfo.updateExsentence(info.getExsentence());
+
+        infoRepository.save(existingInfo);
     }
 }

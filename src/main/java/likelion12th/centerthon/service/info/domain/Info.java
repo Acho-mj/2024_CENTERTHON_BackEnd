@@ -29,4 +29,14 @@ public class Info {
         this.exsentence = exsentence;
     }
 
+    // 설명 업데이트 메서드
+    public void updateDescription(List<String> descriptions) {
+        this.description = descriptions;
+    }
+
+    // 예문 업데이트 메서드
+    public void updateExsentence(List<String> exsentences) {
+        this.exsentence = exsentences;
+    }
+
 }
