@@ -64,4 +64,16 @@ public class InfoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
+    // 검색하기
+    @GetMapping("/search")
+    public ResponseEntity<?> searchInfo(@RequestParam("keyword") String keyword) {
+        List<InfoPreviewDto> searchResults = infoService.searchInfo(keyword);
+
+        if (searchResults.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(searchResults);
+        }
+    }
 }

@@ -60,4 +60,18 @@ public class InfoService {
 
         return new InfoDetailDto(existingInfo.getWord(), existingInfo.getExsentence());
     }
+
+    // 검색하기
+    public List<InfoPreviewDto> searchInfo(String keyword) {
+        // word 검색
+        List<Info> infos = infoRepository.findByWordContainingIgnoreCase(keyword);
+
+        // 검색 결과가 미리보기 데이터로 출력
+        List<InfoPreviewDto> result = infos.stream()
+                .map(info -> new InfoPreviewDto(info.getWord(), info.getDescription()))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
 }
