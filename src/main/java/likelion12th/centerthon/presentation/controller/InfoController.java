@@ -4,6 +4,7 @@ package likelion12th.centerthon.presentation.controller;
 import likelion12th.centerthon.exception.WordExistsException;
 import likelion12th.centerthon.service.info.InfoService;
 import likelion12th.centerthon.service.info.domain.Info;
+import likelion12th.centerthon.service.info.domain.dto.InfoDetailDto;
 import likelion12th.centerthon.service.info.domain.dto.InfoPreviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -52,4 +53,15 @@ public class InfoController {
         return ResponseEntity.ok(previews);
     }
 
+    // 용어 상세 조회하기
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getInfoDetail(@PathVariable("id") Long infoId){
+
+        try {
+            InfoDetailDto detail = infoService.getInfoDetail(infoId);
+            return ResponseEntity.ok(detail);
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 }

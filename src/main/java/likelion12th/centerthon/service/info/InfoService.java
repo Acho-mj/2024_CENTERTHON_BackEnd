@@ -3,6 +3,7 @@ package likelion12th.centerthon.service.info;
 
 import likelion12th.centerthon.exception.WordExistsException;
 import likelion12th.centerthon.service.info.domain.Info;
+import likelion12th.centerthon.service.info.domain.dto.InfoDetailDto;
 import likelion12th.centerthon.service.info.domain.dto.InfoPreviewDto;
 import likelion12th.centerthon.service.info.repository.InfoRepository;
 import lombok.RequiredArgsConstructor;
@@ -50,5 +51,13 @@ public class InfoService {
         return infoRepository.findAll().stream()
                 .map(info -> new InfoPreviewDto(info.getWord(), info.getDescription()))
                 .collect(Collectors.toList());
+    }
+
+    // 용어 상세 조회하기
+    public InfoDetailDto getInfoDetail(Long infoId){
+        Info existingInfo = infoRepository.findById(infoId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 정보 없음"));
+
+        return new InfoDetailDto(existingInfo.getWord(), existingInfo.getExsentence());
     }
 }
