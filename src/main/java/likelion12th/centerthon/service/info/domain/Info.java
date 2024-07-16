@@ -1,11 +1,10 @@
 package likelion12th.centerthon.service.info.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
@@ -18,11 +17,13 @@ public class Info {
     // 용어(단어)
     private String word;
     // 설명(뜻)
-    private String description;
+    @ElementCollection
+    private List<String> description;
     // 예문
-    private String exsentence;
+    @ElementCollection
+    private List<String> exsentence;
 
-    public Info(String word, String description, String exsentence) {
+    public Info(String word, List<String> description, List<String> exsentence) {
         this.word = word;
         this.description = description;
         this.exsentence = exsentence;
