@@ -3,12 +3,15 @@ package likelion12th.centerthon.service.info;
 
 import likelion12th.centerthon.exception.WordExistsException;
 import likelion12th.centerthon.service.info.domain.Info;
+import likelion12th.centerthon.service.info.domain.dto.InfoPreviewDto;
 import likelion12th.centerthon.service.info.repository.InfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -40,5 +43,12 @@ public class InfoService {
         existingInfo.updateExsentence(info.getExsentence());
 
         infoRepository.save(existingInfo);
+    }
+
+    // 등록된 모든 용어 미리보기
+    public List<InfoPreviewDto> getAllInfoPreviews() {
+        return infoRepository.findAll().stream()
+                .map(info -> new InfoPreviewDto(info.getWord(), info.getDescription()))
+                .collect(Collectors.toList());
     }
 }

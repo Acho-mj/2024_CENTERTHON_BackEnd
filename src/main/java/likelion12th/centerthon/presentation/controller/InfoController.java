@@ -4,10 +4,13 @@ package likelion12th.centerthon.presentation.controller;
 import likelion12th.centerthon.exception.WordExistsException;
 import likelion12th.centerthon.service.info.InfoService;
 import likelion12th.centerthon.service.info.domain.Info;
+import likelion12th.centerthon.service.info.domain.dto.InfoPreviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,4 +44,12 @@ public class InfoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("정보 수정 실패");
         }
     }
+
+    // 등록된 모든 용어 미리보기
+    @GetMapping
+    public ResponseEntity<List<InfoPreviewDto>> getAllInfoPreviews() {
+        List<InfoPreviewDto> previews = infoService.getAllInfoPreviews();
+        return ResponseEntity.ok(previews);
+    }
+
 }
