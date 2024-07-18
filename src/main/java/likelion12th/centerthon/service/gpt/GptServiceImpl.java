@@ -30,7 +30,7 @@ public class GptServiceImpl implements GptService {
         final String url = "https://api.openai.com/v1/chat/completions";
 
         String script = question
-                    + "이/가 뭐야?"
+                    + " 뭐야?"
                     + "위의 문장은 요즘 mz세대 / 알파세대라고 불리는 젊은 세대들이 사용하는 신조어, 밈 등이 포함된 문장 또는 단어입니다. "
                     + "각 단어별로 끊어서 해석 후 이를 참고하여 약 150자 이내로 요약해서 제시해 주세요. 답변은 단어별 해석을 제외한 요약한 문장만을 출력해 주세요.";
 

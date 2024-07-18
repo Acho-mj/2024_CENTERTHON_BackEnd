@@ -14,16 +14,23 @@ import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/gpt")
+@RequestMapping("/api")
 public class GptController {
     private final GptService gptService;
     private final SttService sttService;
     @PostMapping("/translate")
-    public ResponseEntity<?> getAssistantMsg(@RequestParam String question) throws JsonProcessingException {
-        ResponseEntity<?> answer = gptService.getAssistantMsg(question);
-        gptService.saveQnaHist(question, answer.getBody().toString());
+    public ResponseEntity<?> getAssistantMsg(@RequestParam String question) {
+        try {
+            ResponseEntity<?> answer = gptService.getAssistantMsg(question);
+            gptService.saveQnaHist(question, answer.getBody().toString());
 
-        return answer;
+            return answer;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
+
     }
 
     @PostMapping("/translate/stt")
