@@ -23,3 +23,21 @@ notifications:
   email:
     recipients:
       - mj020503@naver.com
+
+# Jar 파일을 S3에 업로드
+before_deploy:
+  - zip -r CENTERTHON_BE ./*
+  - mkdir -p deploy
+  - mv CENTERTHON_BE.zip deploy/CENTERTHON_BE.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+
+    bucket: s3-centerthon
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait_until_deployed : true
