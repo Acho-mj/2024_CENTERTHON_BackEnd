@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @RestController
@@ -45,6 +46,10 @@ public class GptController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error recognizing speech: " + e.getMessage());
         }
+    }
 
+    @GetMapping("/recommend")
+    public List<String> getRecommendKeyword() {
+        return gptService.getRecommendKeyword();
     }
 }
