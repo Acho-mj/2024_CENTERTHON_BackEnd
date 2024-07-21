@@ -51,7 +51,9 @@ deploy:
     application: centerthon # codedeploy 애플리케이션
     deployment_group: centerthon-group # codedeploy 배포 그룹
     region: ap-northeast-2
-    wait-until-deployed: true
+    wait_until_deployed : true
+    on:
+      all_branches: true
 
 # CI 실행 완료 시 메일로 알람
 notifications:
