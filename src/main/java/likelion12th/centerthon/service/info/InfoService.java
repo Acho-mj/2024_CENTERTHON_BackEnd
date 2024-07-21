@@ -58,7 +58,7 @@ public class InfoService {
         Info existingInfo = infoRepository.findById(infoId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 ID의 정보 없음"));
 
-        return new InfoDetailDto(existingInfo.getWord(), existingInfo.getExsentence());
+        return new InfoDetailDto(existingInfo.getWord(), existingInfo.getDescription(), existingInfo.getExsentence());
     }
 
     // 검색하기

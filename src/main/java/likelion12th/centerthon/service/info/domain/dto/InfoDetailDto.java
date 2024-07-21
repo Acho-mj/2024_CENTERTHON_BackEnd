@@ -9,10 +9,13 @@ import java.util.List;
 @Setter
 public class InfoDetailDto {
     private String word;
+
+    private List<String> description;
     private List<String> exsentence;
 
-    public InfoDetailDto(String word, List<String> exsentence) {
+    public InfoDetailDto(String word, List<String> description, List<String> exsentence) {
         this.word = word;
+        this.description = description;
         this.exsentence = exsentence;
     }
 }
