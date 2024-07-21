@@ -46,12 +46,15 @@ public class InfoService {
         infoRepository.save(existingInfo);
     }
 
+    /*
     // 등록된 모든 용어 미리보기
     public List<InfoPreviewDto> getAllInfoPreviews() {
         return infoRepository.findAll().stream()
                 .map(info -> new InfoPreviewDto(info.getWord(), info.getDescription()))
                 .collect(Collectors.toList());
     }
+    */
+
 
     // 용어 상세 조회하기
     public InfoDetailDto getInfoDetail(Long infoId){
