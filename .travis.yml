@@ -21,9 +21,9 @@ script: "./gradlew clean build"
 
 # Jar 파일을 S3에 업로드
 before_deploy:
-  - zip -r CENTERTHON_BE ./*
+  - zip -r centerthon ./*
   - mkdir -p deploy
-  - mv CENTERTHON_BE.zip deploy/CENTERTHON_BE.zip
+  - mv centerthon.zip deploy/centerthon.zip
 
 deploy:
   - provider: s3
