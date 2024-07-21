@@ -1,0 +1,7 @@
+# AWS codeDeploy 설정
+version: 0.0
+os : linux
+files :
+  - source : /
+    destination: /home/ec2-user/app/backend2/zip/
+    overwrite : yes
