@@ -1,4 +1,4 @@
-package likelion12th.centerthon.service.gpt.domain;
+package likelion12th.centerthon.service.history.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
