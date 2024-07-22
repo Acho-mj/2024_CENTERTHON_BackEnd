@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPOSITORY=/home/ec2-user/app/backend
+REPOSITORY=/home/ec2-user/app/backend2
 PROJECT_NAME=CENTERTHON_BE
 
 echo "> Build 파일 복사"
@@ -9,7 +9,7 @@ cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
 echo "> 현재 구동중인 애플리케이션 pid 확인"
 
-CURRENT_PID=$(pgrep -fl Study_Springboot-AWS | grep java | awk '{print $1}')
+CURRENT_PID=$(pgrep -fl CENTERTHON_BE | grep java | awk '{print $1}')
 
 echo "현재 구동중인 어플리케이션 pid: $CURRENT_PID"
 
