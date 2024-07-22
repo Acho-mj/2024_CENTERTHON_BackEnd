@@ -27,38 +27,30 @@ before_deploy:
   - mv centerthon.zip deploy/centerthon.zip
 
 deploy:
-  - # S3
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
-
     bucket: s3-centerthon
     region: ap-northeast-2
     skip_cleanup: true
     acl: private
     local_dir: deploy
-    wait_until_deployed : true
+    wait_until_deployed: true
     on:
       branch: main
-    script:
-      - echo "S3 deployment completed"
 
-  # codeDeploy
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
-
-    bucket: s3-centerthon # S3 버킷
-    key: centerthon.zip # build 파일 압축 전달
+    bucket: s3-centerthon
+    key: centerthon.zip
     bundle_type: zip
-    application: centerthon # codedeploy 애플리케이션
-    deployment_group: centerthon-group # codedeploy 배포 그룹
+    application: centerthon
+    deployment_group: centerthon-group
     region: ap-northeast-2
-    wait_until_deployed : true
+    wait_until_deployed: true
     on:
       branch: main
-    script:
-      - echo "CodeDeploy deployment completed"
 
 # CI 실행 완료 시 메일로 알람
 notifications:
