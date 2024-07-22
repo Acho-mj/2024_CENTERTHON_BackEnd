@@ -55,6 +55,12 @@ public class InfoService {
     }
     */
 
+    // 최신순 조회
+    public List<InfoPreviewDto> getInfoPreviewsNewest() {
+        return infoRepository.findAllByOrderByCreatedAtDesc().stream()
+                .map(info -> new InfoPreviewDto(info.getWord(), info.getDescription()))
+                .collect(Collectors.toList());
+    }
 
     // 용어 상세 조회하기
     public InfoDetailDto getInfoDetail(Long infoId){

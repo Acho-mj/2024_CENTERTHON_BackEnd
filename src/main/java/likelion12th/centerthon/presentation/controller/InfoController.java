@@ -46,10 +46,19 @@ public class InfoController {
         }
     }
 
+    /* 
     // 등록된 모든 용어 미리보기
     @GetMapping
     public ResponseEntity<List<InfoPreviewDto>> getAllInfoPreviews() {
         List<InfoPreviewDto> previews = infoService.getAllInfoPreviews();
+        return ResponseEntity.ok(previews);
+    }
+     */
+
+    // 최신순 조회
+    @GetMapping("/sortedByDate")
+    public ResponseEntity<List<InfoPreviewDto>> getInfosSortedByCreationDate() {
+        List<InfoPreviewDto> previews = infoService.getInfoPreviewsNewest();
         return ResponseEntity.ok(previews);
     }
 
