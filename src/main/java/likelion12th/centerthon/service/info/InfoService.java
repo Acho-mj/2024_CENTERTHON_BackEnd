@@ -62,10 +62,21 @@ public class InfoService {
                 .collect(Collectors.toList());
     }
 
+    // 조회순 조회
+    public List<InfoPreviewDto> getInfoPreviewsCount() {
+        return infoRepository.findAllByOrderByViewCountDesc().stream()
+                .map(info -> new InfoPreviewDto(info.getWord(), info.getDescription()))
+                .collect(Collectors.toList());
+    }
+
     // 용어 상세 조회하기
     public InfoDetailDto getInfoDetail(Long infoId){
         Info existingInfo = infoRepository.findById(infoId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 ID의 정보 없음"));
+
+        // 조회수 증가
+        existingInfo.incrementViewCount();
+        infoRepository.save(existingInfo);
 
         return new InfoDetailDto(existingInfo.getWord(), existingInfo.getDescription(), existingInfo.getExsentence());
     }

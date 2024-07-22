@@ -15,4 +15,7 @@ public interface InfoRepository extends JpaRepository<Info, Long> {
 
     // 최신순으로 정렬
     List<Info> findAllByOrderByCreatedAtDesc();
+
+    // 조회수 순으로 정렬
+    List<Info> findAllByOrderByViewCountDesc();
 }
