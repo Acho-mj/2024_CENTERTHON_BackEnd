@@ -21,6 +21,7 @@ script: "./gradlew clean build"
 
 # Jar 파일을 S3에 업로드
 before_deploy:
+  - echo "Preparing for deploy"
   - zip -r centerthon ./*
   - mkdir -p deploy
   - mv centerthon.zip deploy/centerthon.zip
@@ -38,7 +39,9 @@ deploy:
     local_dir: deploy
     wait_until_deployed : true
     on:
-      all_branches: true
+      branch: main
+    script:
+      - echo "S3 deployment completed"
 
   # codeDeploy
   - provider: codedeploy
@@ -53,7 +56,9 @@ deploy:
     region: ap-northeast-2
     wait_until_deployed : true
     on:
-      all_branches: true
+      branch: main
+    script:
+      - echo "CodeDeploy deployment completed"
 
 # CI 실행 완료 시 메일로 알람
 notifications:
