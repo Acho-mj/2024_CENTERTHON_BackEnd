@@ -12,4 +12,10 @@ public interface InfoRepository extends JpaRepository<Info, Long> {
     // 단어 등록 시 중복 단어 확인
     Info findByWord(String word);
     List<Info> findByWordContainingIgnoreCase(String keyword);
+
+    // 최신순으로 정렬
+    List<Info> findAllByOrderByCreatedAtDesc();
+
+    // 조회수 순으로 정렬
+    List<Info> findAllByOrderByViewCountDesc();
 }

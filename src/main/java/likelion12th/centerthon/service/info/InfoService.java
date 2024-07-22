@@ -46,9 +46,25 @@ public class InfoService {
         infoRepository.save(existingInfo);
     }
 
+    /*
     // 등록된 모든 용어 미리보기
     public List<InfoPreviewDto> getAllInfoPreviews() {
         return infoRepository.findAll().stream()
+                .map(info -> new InfoPreviewDto(info.getWord(), info.getDescription()))
+                .collect(Collectors.toList());
+    }
+    */
+
+    // 최신순 조회
+    public List<InfoPreviewDto> getInfoPreviewsNewest() {
+        return infoRepository.findAllByOrderByCreatedAtDesc().stream()
+                .map(info -> new InfoPreviewDto(info.getWord(), info.getDescription()))
+                .collect(Collectors.toList());
+    }
+
+    // 조회순 조회
+    public List<InfoPreviewDto> getInfoPreviewsCount() {
+        return infoRepository.findAllByOrderByViewCountDesc().stream()
                 .map(info -> new InfoPreviewDto(info.getWord(), info.getDescription()))
                 .collect(Collectors.toList());
     }
@@ -58,7 +74,11 @@ public class InfoService {
         Info existingInfo = infoRepository.findById(infoId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 ID의 정보 없음"));
 
-        return new InfoDetailDto(existingInfo.getWord(), existingInfo.getExsentence());
+        // 조회수 증가
+        existingInfo.incrementViewCount();
+        infoRepository.save(existingInfo);
+
+        return new InfoDetailDto(existingInfo.getWord(), existingInfo.getDescription(), existingInfo.getExsentence());
     }
 
     // 검색하기
