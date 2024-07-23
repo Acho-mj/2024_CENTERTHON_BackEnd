@@ -49,7 +49,13 @@ public class GptController {
     }
 
     @GetMapping("/recommend")
-    public List<String> getRecommendKeyword() {
-        return gptService.getRecommendKeyword();
+    public ResponseEntity<?> getRecommendKeyword() {
+        try {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(gptService.getRecommendKeyword());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error recognizing speech: " + e.getMessage());
+        }
     }
 }
