@@ -112,7 +112,7 @@ public class GptServiceImpl implements GptService {
             Integer keywordId = random.nextInt(keywordCount.intValue()) + 1;
             // 랜덤 추출 id 중복 확인
             if (selectedIds.add(keywordId)) {
-                keywordList.add(infoRepository.getById(keywordId.longValue()).getWord());
+                infoRepository.findById(keywordId.longValue()).ifPresent(keyword -> keywordList.add(keyword.getWord()));
             }
         }
 
