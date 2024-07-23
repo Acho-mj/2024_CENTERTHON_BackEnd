@@ -94,28 +94,52 @@ public class GptServiceImpl implements GptService {
         ArrayList<String> keywordList = new ArrayList<>();
         // 게시판에 등록된 키워드 개수
         Long keywordCount = infoRepository.count();
-        Random random = new Random();
 
         // keywordCount가 7개 보다 적은 경우 빈 리스트 반환
         if (keywordCount < 7) {
             return keywordList;
         }
 
-        // 중복 확인을 위한 해시셋
-        Set<Integer> selectedIds = new HashSet<>();
+        // 모든 키워드 ID를 미리 조회
+        List<Long> allKeywordIds = infoRepository.findAllIds(); // 이 메서드는 모든 키워드 ID를 반환한다고 가정합니다.
 
-        // 필요한 키워드 개수
+        Random random = new Random();
+        Set<Long> selectedIds = new HashSet<>();
         int maxKeywords = 7;
 
         while (selectedIds.size() < maxKeywords) {
-            // 1부터 keywordCount 사이의 랜덤 숫자 생성
-            Integer keywordId = random.nextInt(keywordCount.intValue()) + 1;
-            // 랜덤 추출 id 중복 확인
-            if (selectedIds.add(keywordId)) {
-                infoRepository.findById(keywordId.longValue()).ifPresent(keyword -> keywordList.add(keyword.getWord()));
+            Long randomId = allKeywordIds.get(random.nextInt(allKeywordIds.size()));
+            if (selectedIds.add(randomId)) {
+                infoRepository.findById(randomId).ifPresent(keyword -> keywordList.add(keyword.getWord()));
             }
         }
 
         return keywordList;
+//        ArrayList<String> keywordList = new ArrayList<>();
+//        // 게시판에 등록된 키워드 개수
+//        Long keywordCount = infoRepository.count();
+//        Random random = new Random();
+//
+//        // keywordCount가 7개 보다 적은 경우 빈 리스트 반환
+//        if (keywordCount < 7) {
+//            return keywordList;
+//        }
+//
+//        // 중복 확인을 위한 해시셋
+//        Set<Integer> selectedIds = new HashSet<>();
+//
+//        // 필요한 키워드 개수
+//        int maxKeywords = 7;
+//
+//        while (selectedIds.size() < maxKeywords) {
+//            // 1부터 keywordCount 사이의 랜덤 숫자 생성
+//            Integer keywordId = random.nextInt(keywordCount.intValue()) + 1;
+//            // 랜덤 추출 id 중복 확인
+//            if (selectedIds.add(keywordId)) {
+//                keywordList.add(infoRepository.getById(keywordId.longValue()).getWord());
+//            }
+//        }
+//
+//        return keywordList;
     }
 }
