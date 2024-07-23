@@ -2,6 +2,7 @@ package likelion12th.centerthon.service.info.repository;
 
 import likelion12th.centerthon.service.info.domain.Info;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +19,7 @@ public interface InfoRepository extends JpaRepository<Info, Long> {
 
     // 조회수 순으로 정렬
     List<Info> findAllByOrderByViewCountDesc();
+
+    @Query("SELECT i.id FROM Info i")
+    List<Long> findAllIds();
 }
