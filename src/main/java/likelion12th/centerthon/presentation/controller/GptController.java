@@ -51,7 +51,7 @@ public class GptController {
     @GetMapping("/recommend")
     public ResponseEntity<?> getRecommendKeyword() {
         try {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            return ResponseEntity.status(HttpStatus.OK)
                     .body(gptService.getRecommendKeyword());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
