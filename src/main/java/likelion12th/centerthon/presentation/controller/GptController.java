@@ -11,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @RestController
@@ -39,7 +41,13 @@ public class GptController {
         try {
             String question = sttService.recognizeSpeech(audioFile);
             ResponseEntity<?> answer = gptService.getAssistantMsg(question);
-            gptService.saveQnaHist(question, answer.getBody().toString());
+            Pattern pattern = Pattern.compile("\"text\":\"([^\"]+)\"");
+            Matcher matcher = pattern.matcher(question);
+            String extractedQuestion = "";
+            if (matcher.find()) {
+                extractedQuestion = matcher.group(1);
+            }
+            gptService.saveQnaHist(extractedQuestion, answer.getBody().toString());
             return answer;
         } catch (IOException e) {
             e.printStackTrace();
