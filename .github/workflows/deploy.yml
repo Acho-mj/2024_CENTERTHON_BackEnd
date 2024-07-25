@@ -1,0 +1,47 @@
+name: Deploy to cloudtype
+on:
+  push:
+    branches:
+      - yushinc
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Connect deploy key
+        uses: cloudtype-github-actions/connect@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          ghtoken: ${{ secrets.GHP_TOKEN }}
+      - name: Deploy
+        uses: cloudtype-github-actions/deploy@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          project: yushinc/12th_centerthon_be
+          stage: main
+          yaml: |
+            name: centerthon-be
+            app: java@17
+            options:
+              ports: 8080
+              env:
+                - name: DB_URL
+                  secret: DB_URL
+                - name: DB_USERNAME
+                  secret: DB_USERNAME
+                - name: DB_PASSWORD
+                  secret: DB_PASSWORD
+                - name: CHATGPT_KEY
+                  secret: CHATGPT_KEY
+                - name: STT_ID
+                  secret: STT_ID
+                - name: STT_URL
+                  secret: STT_URL
+                - name: STT_SECRET
+                  secret: STT_SECRET
+              buildenv: []
+            context:
+              git:
+                url: git@github.com:${{ github.repository }}.git
+                ref: ${{ github.ref }}

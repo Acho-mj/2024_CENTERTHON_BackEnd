@@ -55,20 +55,43 @@ public class InfoController {
     }
      */
 
-    // 최신순 조회
+    // 최신순 전체 조회
     @GetMapping("/sortedByDate")
     public ResponseEntity<List<InfoPreviewDto>> getInfosSortedByDate() {
         List<InfoPreviewDto> previews = infoService.getInfoPreviewsNewest();
         return ResponseEntity.ok(previews);
     }
 
-    // 조회순 조회
+    // 최신순 상세 조회
+    @GetMapping("/sortedByDate/{id}")
+    public ResponseEntity<?> getInfoDetailByDate(@PathVariable("id") Long infoId){
+        try {
+            InfoDetailDto detail = infoService.getInfoDetail(infoId);
+            return ResponseEntity.ok(detail);
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    // 조회순 전체 조회
     @GetMapping("/sortedByView")
     public ResponseEntity<List<InfoPreviewDto>> getInfosSortedByView() {
         List<InfoPreviewDto> previews = infoService.getInfoPreviewsCount();
         return ResponseEntity.ok(previews);
     }
 
+    // 조회순 상세 조회
+    @GetMapping("/sortedByView/{id}")
+    public ResponseEntity<?> getInfoDetailByView(@PathVariable("id") Long infoId){
+        try {
+            InfoDetailDto detail = infoService.getInfoDetail(infoId);
+            return ResponseEntity.ok(detail);
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    /*
     // 용어 상세 조회하기
     @GetMapping("/{id}")
     public ResponseEntity<?> getInfoDetail(@PathVariable("id") Long infoId){
@@ -80,6 +103,7 @@ public class InfoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+    */
 
     // 검색하기
     @GetMapping("/search")
