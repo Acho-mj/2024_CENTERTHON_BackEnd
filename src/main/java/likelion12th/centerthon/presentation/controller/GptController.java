@@ -20,7 +20,7 @@ public class GptController {
     private final GptService gptService;
     private final SttService sttService;
     @PostMapping("/translate")
-    public ResponseEntity<?> getAssistantMsg(@RequestParam String question) {
+    public ResponseEntity<?> getAssistantMsg(@RequestParam("question") String question) {
         try {
             ResponseEntity<?> answer = gptService.getAssistantMsg(question);
             gptService.saveQnaHist(question, answer.getBody().toString());
