@@ -35,7 +35,7 @@ public class GptController {
     }
 
     @PostMapping("/translate/stt")
-    public ResponseEntity<?> getAssistantMsg(@RequestParam("file") MultipartFile audioFile) {
+    public ResponseEntity<?> getAssistantMsg(@RequestPart(value = "file", required = false) MultipartFile audioFile) {
         try {
             String question = sttService.recognizeSpeech(audioFile);
             ResponseEntity<?> answer = gptService.getAssistantMsg(question);
