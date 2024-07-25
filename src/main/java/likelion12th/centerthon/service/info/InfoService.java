@@ -55,12 +55,13 @@ public class InfoService {
     }
     */
 
-    // 최신순 조회
+    // 최신순 전체 조회
     public List<InfoPreviewDto> getInfoPreviewsNewest() {
         return infoRepository.findAllByOrderByCreatedAtDesc().stream()
                 .map(info -> new InfoPreviewDto(info.getWord(), info.getDescription()))
                 .collect(Collectors.toList());
     }
+
 
     // 조회순 조회
     public List<InfoPreviewDto> getInfoPreviewsCount() {
@@ -80,6 +81,7 @@ public class InfoService {
 
         return new InfoDetailDto(existingInfo.getWord(), existingInfo.getDescription(), existingInfo.getExsentence());
     }
+
 
     // 검색하기
     public List<InfoPreviewDto> searchInfo(String keyword) {
