@@ -56,17 +56,17 @@ public class InfoService {
     */
 
     // 최신순 전체 조회
-    public List<InfoPreviewDto> getInfoPreviewsNewest() {
+    public List<InfoDetailDto> getInfoPreviewsNewest() {
         return infoRepository.findAllByOrderByCreatedAtDesc().stream()
-                .map(info -> new InfoPreviewDto(info.getWord(), info.getDescription()))
+                .map(info -> new InfoDetailDto(info.getWord(), info.getDescription(), info.getExsentence()))
                 .collect(Collectors.toList());
     }
 
 
-    // 조회순 조회
-    public List<InfoPreviewDto> getInfoPreviewsCount() {
+    // 조회순 전체 조회
+    public List<InfoDetailDto> getInfoPreviewsCount() {
         return infoRepository.findAllByOrderByViewCountDesc().stream()
-                .map(info -> new InfoPreviewDto(info.getWord(), info.getDescription()))
+                .map(info -> new InfoDetailDto(info.getWord(), info.getDescription(), info.getExsentence()))
                 .collect(Collectors.toList());
     }
 
