@@ -57,8 +57,8 @@ public class InfoController {
 
     // 최신순 전체 조회
     @GetMapping("/sortedByDate")
-    public ResponseEntity<List<InfoPreviewDto>> getInfosSortedByDate() {
-        List<InfoPreviewDto> previews = infoService.getInfoPreviewsNewest();
+    public ResponseEntity<List<InfoDetailDto>> getInfosSortedByDate() {
+        List<InfoDetailDto> previews = infoService.getInfoPreviewsNewest();
         return ResponseEntity.ok(previews);
     }
 
@@ -75,8 +75,8 @@ public class InfoController {
 
     // 조회순 전체 조회
     @GetMapping("/sortedByView")
-    public ResponseEntity<List<InfoPreviewDto>> getInfosSortedByView() {
-        List<InfoPreviewDto> previews = infoService.getInfoPreviewsCount();
+    public ResponseEntity<List<InfoDetailDto>> getInfosSortedByView() {
+        List<InfoDetailDto> previews = infoService.getInfoPreviewsCount();
         return ResponseEntity.ok(previews);
     }
 
