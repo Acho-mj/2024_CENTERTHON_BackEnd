@@ -4,6 +4,7 @@ package likelion12th.centerthon.service.info;
 import likelion12th.centerthon.exception.WordExistsException;
 import likelion12th.centerthon.service.info.domain.Info;
 import likelion12th.centerthon.service.info.domain.dto.InfoDetailDto;
+import likelion12th.centerthon.service.info.domain.dto.InfoGetDto;
 import likelion12th.centerthon.service.info.domain.dto.InfoPreviewDto;
 import likelion12th.centerthon.service.info.repository.InfoRepository;
 import lombok.RequiredArgsConstructor;
@@ -56,17 +57,17 @@ public class InfoService {
     */
 
     // 최신순 전체 조회
-    public List<InfoDetailDto> getInfoPreviewsNewest() {
+    public List<InfoGetDto> getInfoPreviewsNewest() {
         return infoRepository.findAllByOrderByCreatedAtDesc().stream()
-                .map(info -> new InfoDetailDto(info.getWord(), info.getDescription(), info.getExsentence()))
+                .map(info -> new InfoGetDto(info.getId(), info.getWord(), info.getDescription(), info.getExsentence()))
                 .collect(Collectors.toList());
     }
 
 
     // 조회순 전체 조회
-    public List<InfoDetailDto> getInfoPreviewsCount() {
+    public List<InfoGetDto> getInfoPreviewsCount() {
         return infoRepository.findAllByOrderByViewCountDesc().stream()
-                .map(info -> new InfoDetailDto(info.getWord(), info.getDescription(), info.getExsentence()))
+                .map(info -> new InfoGetDto(info.getId(), info.getWord(), info.getDescription(), info.getExsentence()))
                 .collect(Collectors.toList());
     }
 
