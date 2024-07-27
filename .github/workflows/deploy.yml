@@ -18,7 +18,7 @@ jobs:
         uses: cloudtype-github-actions/deploy@v1
         with:
           token: ${{ secrets.CLOUDTYPE_TOKEN }}
-          project: yushinc/12th_centerthon_be
+          project: joominse0/centerthon-be
           stage: main
           yaml: |
             name: centerthon-be
@@ -26,20 +26,20 @@ jobs:
             options:
               ports: 8080
               env:
+                - name: CHATGPT_KEY
+                  secret: CHATGPT_KEY
+                - name: DB_PASSWORD
+                  secret: DB_PASSWORD
                 - name: DB_URL
                   secret: DB_URL
                 - name: DB_USERNAME
                   secret: DB_USERNAME
-                - name: DB_PASSWORD
-                  secret: DB_PASSWORD
-                - name: CHATGPT_KEY
-                  secret: CHATGPT_KEY
                 - name: STT_ID
                   secret: STT_ID
-                - name: STT_URL
-                  secret: STT_URL
                 - name: STT_SECRET
                   secret: STT_SECRET
+                - name: STT_URL
+                  secret: STT_URL
               buildenv: []
             context:
               git:
