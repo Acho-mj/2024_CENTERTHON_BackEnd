@@ -7,6 +7,7 @@ import likelion12th.centerthon.service.history.domain.dto.HistPreviewDto;
 import likelion12th.centerthon.service.history.repository.HistoryRepository;
 import likelion12th.centerthon.service.info.domain.dto.InfoPreviewDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class HistoryService {
 
     // 대화 기록 전체 조회
     public List<HistPreviewDto> getAllHistory() {
-        return historyRepository.findAll().stream()
+        return historyRepository.findAll(Sort.by(Sort.Direction.DESC, "id")).stream()
                 .map(hist -> new HistPreviewDto(hist.getQuestionHist()))
                 .collect(Collectors.toList());
     }
