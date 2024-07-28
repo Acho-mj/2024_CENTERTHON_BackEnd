@@ -23,7 +23,7 @@ public class HistoryService {
     // 대화 기록 전체 조회
     public List<HistPreviewDto> getAllHistory() {
         return historyRepository.findAll(Sort.by(Sort.Direction.DESC, "id")).stream()
-                .map(hist -> new HistPreviewDto(hist.getQuestionHist()))
+                .map(hist -> new HistPreviewDto(hist.getId(), hist.getQuestionHist()))
                 .collect(Collectors.toList());
     }
 
