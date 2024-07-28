@@ -5,6 +5,7 @@ import likelion12th.centerthon.exception.WordExistsException;
 import likelion12th.centerthon.service.info.InfoService;
 import likelion12th.centerthon.service.info.domain.Info;
 import likelion12th.centerthon.service.info.domain.dto.InfoDetailDto;
+import likelion12th.centerthon.service.info.domain.dto.InfoGetDto;
 import likelion12th.centerthon.service.info.domain.dto.InfoPreviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -57,8 +58,8 @@ public class InfoController {
 
     // 최신순 전체 조회
     @GetMapping("/sortedByDate")
-    public ResponseEntity<List<InfoPreviewDto>> getInfosSortedByDate() {
-        List<InfoPreviewDto> previews = infoService.getInfoPreviewsNewest();
+    public ResponseEntity<List<InfoGetDto>> getInfosSortedByDate() {
+        List<InfoGetDto> previews = infoService.getInfoPreviewsNewest();
         return ResponseEntity.ok(previews);
     }
 
@@ -75,8 +76,8 @@ public class InfoController {
 
     // 조회순 전체 조회
     @GetMapping("/sortedByView")
-    public ResponseEntity<List<InfoPreviewDto>> getInfosSortedByView() {
-        List<InfoPreviewDto> previews = infoService.getInfoPreviewsCount();
+    public ResponseEntity<List<InfoGetDto>> getInfosSortedByView() {
+        List<InfoGetDto> previews = infoService.getInfoPreviewsCount();
         return ResponseEntity.ok(previews);
     }
 
