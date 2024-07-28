@@ -1,15 +1,15 @@
 package likelion12th.centerthon.service.history.domain.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 
-import java.util.List;
 
 @Getter
 public class HistPreviewDto {
+    private Long id;
     private String questionHist;
 
-    public HistPreviewDto(String questionHist) {
+    public HistPreviewDto(Long id, String questionHist) {
+        this.id = id;
         this.questionHist = questionHist;
     }
 }
